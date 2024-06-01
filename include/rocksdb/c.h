@@ -3070,7 +3070,7 @@ rocksdb_table_properties_collector_factory_create(
     rocksdb_table_properties_collector_t* (*create_table_properties_collector)(
         void*, uint32_t column_family_id, int level_at_creation),
     const char* (*name)(void*));
-void rocksdb_table_properties_collector_factory_destory(
+void rocksdb_table_properties_collector_factory_destroy(
     rocksdb_table_properties_collector_factory_t* factory);
 extern ROCKSDB_LIBRARY_API rocksdb_table_properties_collector_t*
 rocksdb_table_properties_collector_create(
@@ -3085,7 +3085,7 @@ rocksdb_table_properties_collector_create(
                               rocksdb_add_user_collected_properties adder),
     void (*get_readable_properties)(
         void*, void* properties, rocksdb_add_user_collected_properties adder));
-extern ROCKSDB_LIBRARY_API void rocksdb_table_properties_collector_destory(
+extern ROCKSDB_LIBRARY_API void rocksdb_table_properties_collector_destroy(
     rocksdb_table_properties_collector_t* collector);
 
 extern ROCKSDB_LIBRARY_API rocksdb_table_properties_collection_t*
@@ -3098,13 +3098,13 @@ rocksdb_get_properties_of_tables_in_range(
     size_t num_ranges, const char* const* range_start_key,
     const size_t* range_start_key_len, const char* const* range_limit_key,
     const size_t* range_limit_key_len, char** errptr);
-extern ROCKSDB_LIBRARY_API void rocksdb_table_properties_collection_destory(
+extern ROCKSDB_LIBRARY_API void rocksdb_table_properties_collection_destroy(
     rocksdb_table_properties_collection_t*);
 extern ROCKSDB_LIBRARY_API rocksdb_table_properties_t*
 rocksdb_table_properties_collection_next(
     rocksdb_table_properties_collection_t* collection);
 
-extern ROCKSDB_LIBRARY_API void rocksdb_table_properties_destory(
+extern ROCKSDB_LIBRARY_API void rocksdb_table_properties_destroy(
     rocksdb_table_properties_t*);
 extern ROCKSDB_LIBRARY_API void rocksdb_table_properties_user_collected(
     rocksdb_table_properties_t* table_properties, void* state,

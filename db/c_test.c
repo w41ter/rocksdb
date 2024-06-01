@@ -3918,7 +3918,7 @@ int main(int argc, char** argv) {
             TablePropertiesCollectorCreate, TablePropertiesCollectorName);
     rocksdb_options_add_table_properties_collector_factory(
         options_with_collector_factory, factory);
-    rocksdb_table_properties_collector_factory_destory(factory);
+    rocksdb_table_properties_collector_factory_destroy(factory);
 
     // New database
     rocksdb_close(db);
@@ -3942,6 +3942,7 @@ int main(int argc, char** argv) {
     rocksdb_flushoptions_t* flush_opts = rocksdb_flushoptions_create();
     rocksdb_flushoptions_set_wait(flush_opts, 1);
     rocksdb_flush(db, flush_opts, &err);
+    rocksdb_flushoptions_destroy(flush_opts);
     CheckNoError(err);
 
     rocksdb_table_properties_collection_t* collection =
@@ -3954,9 +3955,9 @@ int main(int argc, char** argv) {
                 rocksdb_table_properties_collection_next(collection)) != NULL) {
       rocksdb_table_properties_user_collected(properties, &exists,
                                               TablePropertiesReader);
-      rocksdb_table_properties_destory(properties);
+      rocksdb_table_properties_destroy(properties);
     }
-    rocksdb_table_properties_collection_destory(collection);
+    rocksdb_table_properties_collection_destroy(collection);
     CheckCondition(exists == 1);
 
     rocksdb_options_destroy(options_with_collector_factory);

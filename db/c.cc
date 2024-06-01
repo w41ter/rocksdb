@@ -29,13 +29,11 @@
 #include "rocksdb/options.h"
 #include "rocksdb/perf_context.h"
 #include "rocksdb/rate_limiter.h"
-#include "rocksdb/rocksdb_namespace.h"
 #include "rocksdb/slice_transform.h"
 #include "rocksdb/statistics.h"
 #include "rocksdb/status.h"
 #include "rocksdb/table.h"
 #include "rocksdb/table_properties.h"
-#include "rocksdb/types.h"
 #include "rocksdb/universal_compaction.h"
 #include "rocksdb/utilities/backup_engine.h"
 #include "rocksdb/utilities/checkpoint.h"
@@ -567,10 +565,6 @@ struct rocksdb_table_properties_collector_t
 
   ~rocksdb_table_properties_collector_t() override { (*destructor_)(state_); }
 
-  // AddUserKey() will be called when a new key/value pair is inserted into the
-  // table.
-  // @params key    the user key that is inserted into the table.
-  // @params value  the value that is inserted into the table.
   Status AddUserKey(const Slice& key, const Slice& value, EntryType type,
                     SequenceNumber seq, uint64_t file_size) override {
     add_user_key_(state_, key.data(), key.size(), value.data(), value.size(),
@@ -7041,7 +7035,7 @@ rocksdb_table_properties_collector_factory_create(
   return factory;
 }
 
-void rocksdb_table_properties_collector_factory_destory(
+void rocksdb_table_properties_collector_factory_destroy(
     rocksdb_table_properties_collector_factory_t* factory) {
   delete factory;
 }
@@ -7069,7 +7063,7 @@ rocksdb_table_properties_collector_t* rocksdb_table_properties_collector_create(
   return collector;
 }
 
-void rocksdb_table_properties_collector_destory(
+void rocksdb_table_properties_collector_destroy(
     rocksdb_table_properties_collector_t* collector) {
   delete collector;
 }
@@ -7114,7 +7108,7 @@ rocksdb_get_properties_of_tables_in_range(
   return ret;
 }
 
-void rocksdb_table_properties_collection_destory(
+void rocksdb_table_properties_collection_destroy(
     rocksdb_table_properties_collection_t* collection) {
   delete collection;
 }
@@ -7134,7 +7128,7 @@ rocksdb_table_properties_t* rocksdb_table_properties_collection_next(
   return properties;
 }
 
-void rocksdb_table_properties_destory(rocksdb_table_properties_t* properties) {
+void rocksdb_table_properties_destroy(rocksdb_table_properties_t* properties) {
   delete properties;
 }
 
